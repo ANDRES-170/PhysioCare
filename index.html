@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>EJERCICIOS DE REHABILITACION</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bulma.min.css">
+</head>
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="index.html">
+      <img src="minlogo.png" width="29" height="28">
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="index.html">
+        Inicio
+      </a>
+
+      <a class="navbar-item">
+        Documentation
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Ejercicios
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="brazo.html">
+            Brazo
+          </a>
+          <a class="navbar-item" href="cabeza.html">
+            Cabeza
+          </a>
+          <a class="navbar-item" href="cadera.html">
+            Caderas
+          </a>
+          <a class="navbar-item" href="hombro.html">
+            Hombros
+          </a>
+          <a class="navbar-item" href="muñeca.html">
+            Muñecas
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-item">
+      <p id="username">
+
+      </p>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" href="register.html">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light" href="login.html">
+            Log in
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+<hr>
+<table >
+
+<tr>
+    <th><h3><center>¿Quienes somos?</center></h3></th>
+</tr>
+
+<tr>
+    <td>
+        <h3><p>Somos un programa el cual busca ayudar a las personas de tercera edad con ejercicios de rehabilitacion con limitaciones funcionales. Este programa contiene una serie de ejercicios que te indicaran que hacer, y que tan bien lo estas haciendo. Lo unico que tienes que hacer es seleccionar el tipo de ejercicio que quieres realizar. Este programa tiene 2 años de investigacion, el cual a pasado por diferentes prototipos, y cambios que generar una pagina web con ejercicios cordinados para la salud del adulto mayor.</p></h3>
+    </td>
+    <td>
+        <img src="ejercicio1.jpg" width="300" height="200">
+    </td>
+</tr>
+<tr>
+    <td>
+        <h3><center>¿Como funciona nuestro programa?</center></h3>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <h3><p>
+    Este programa esta diseñado para personas de la tercera edad al dar click en el ejercicio que quieres realizar, te mostrara un video bajado de youtube o hecho por un especialista de salud, con la explicación, asi mismo un modelo de camara que segun el porcentaje te dira que tan bien lo esta haciendo el usuario, donde 1 es donde lo estas haciendo bien, pero si el numero baja tienes que mejorar.
+         </h3></p>
+</td>
+<td>
+    <img src="machine.png">
+</td>
+</tr>
+    
+</table>
+<p><h3><center>Los servicios que ofrecemos son los siguientes:</center></h3>
+    <center>
+    <table>
+            
+       <tr>
+            <td>
+                <a href="cabeza.html" target="_self">
+                    <img src="cabezas.png" width="200" height="200">
+                </a>
+            </td>
+            <td>
+                <a href="cadera.html" target="_self">
+                    <img src="caderas.png" width="200" height="200">
+                </a>
+            </td>
+            <td>
+                <a href="muñeca.html" target="_self">
+                    <img src="muñecas.jpg" width="200" height="200">
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="hombro.html" target="_self">
+                    <img src="hombros.jpg" width="200" height="200">
+                </a>
+            </td>
+            <td>
+                <a href="brazo.html" target="_self">
+                    <img src="brazos.jpg" width="200" height="200">
+                </a>
+            </td>
+        
+        </tr>
+            
+    </table>
+</center>
+<script>
+  name = localStorage.getItem("user")
+  if (name == "null") {
+    username.innerText = ""
+  } else {
+    username.innerText = "Registrado como: " + name
+  }
+</script>
+</body>
+</html>

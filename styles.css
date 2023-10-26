@@ -1,0 +1,55 @@
+table tr td {
+  padding: 20px;
+  text-align: center;
+}
+
+div p {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+table tr td div{
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
+  align-items: center;
+  margin: auto;
+  
+}
+
+canvas {
+  margin: auto;
+  justify-content: center;
+}
+
+progress {
+    background: none;
+}
+
+progress::-webkit-progress-bar {
+    background: radial-gradient(circle, transparent, gray);
+    border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+    background: aquamarine;
+    border-radius: 5px;
+}
+
+table {
+    animation: drop-down 1s cubic-bezier(0.075, 0.82, 0.165, 1) 0s 1 forwards;
+}
+
+@keyframes drop-down {
+    from {
+        transform: translateY(-100%);
+        filter: blur(20px);
+    }
+
+    to {
+        transform: translateY(0%);
+        filter: blur(0px);
+    }
+}

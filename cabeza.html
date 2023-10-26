@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ejercicio Cabeza</title>
+    <link rel="stylesheet" type="text/css" href="css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="index.html">
+            <img src="minlogo.png" width="29" height="28">
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="index.html">
+              Inicio
+            </a>
+      
+            <a class="navbar-item">
+              Documentation
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Ejercicios
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="brazo.html">
+                  Brazo
+                </a>
+                <a class="navbar-item" href="cabeza.html">
+                  Cabeza
+                </a>
+                <a class="navbar-item" href="cadera.html">
+                  Caderas
+                </a>
+                <a class="navbar-item" href="hombro.html">
+                  Hombros
+                </a>
+                <a class="navbar-item" href="muñeca.html">
+                  Muñecas
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="navbar-item">
+            <p id="username">
+      
+            </p>
+          </div>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" href="register.html">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+	<center>
+<table class="tabla1">
+	<tr>
+		<td colspan="2">
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/yeNbmnFsOig?si=h-KYgo6QJSEBcIs1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+		</td>
+		<td colspan="2">
+<div>DA CLICK PARA EMPEZAR EL PROGRAMA</div>
+<button type="button" onclick="cabeza()">Start</button>
+<div><canvas id="canvas"></canvas></div>
+<div id="label-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+			
+		</td>
+	</tr>
+</table>
+
+<script type="text/javascript">
+    
+// el enlace a su modelo proporcionado por el panel de exportación de Teachable Machine
+    const URL = "https://teachablemachine.withgoogle.com/models/CDwUdqUWZ/";
+    let model, webcam, ctx, labelContainer, maxPredictions;
+
+    async function cabeza() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // cargar el modelo y los metadatos
+        // Consulte tmImage.loadFromFiles() en la API para admitir archivos desde un selector de archivos
+        // Nota: la biblioteca de pose agrega un objeto tmPose a su ventana (window.tmPose)
+
+        model = await tmPose.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // Función conveniente para configurar una cámara web
+        
+        const size = 400;
+        const flip = true;// si se debe voltear la cámara web
+        webcam = new tmPose.Webcam(size, size, flip); // ancho, alto, voltear
+        await webcam.setup(); // solicitar acceso a la cámara web
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        // agregar/obtener elementos al DOM
+        const canvas = document.getElementById("canvas");
+        canvas.width = size; canvas.height = size;
+        ctx = canvas.getContext("2d");
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { // y etiquetas de clase
+            labelContainer.appendChild(document.createElement("div"));
+        }
+
+        for (let i = 0; i < maxPredictions; i++) { // and class labels
+          parraph = labelContainer.appendChild(document.createElement("p"));
+          parraph.innerText = "" 
+          parraph.id = "txt"+i
+        }
+    }
+
+    async function loop(timestamp) {
+        webcam.update(); // actualiza el marco de la cámara web
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+
+    async function predict() {
+        // Predicción n.º 1: ejecutar la entrada a través de posenet
+        // estimaPose puede tomar una imagen, video o elemento html de lienzo
+        const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+        // Predicción 2: ejecutar la entrada a través del modelo de clasificación de máquina enseñable
+        const prediction = await model.predict(posenetOutput);
+
+        for (let i = 0; i < maxPredictions; i++) {
+          const namePrediction = prediction[i].className;
+            const numPrediction = prediction[i].probability.toFixed(2);
+            document.getElementById("txt"+i).innerHTML = namePrediction + ': ' + '<progress id="" max="100" value='+(numPrediction*100)+'></progress>';
+          
+          /*  
+          const classPrediction =
+                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+            */
+        }
+
+        // finalmente dibuja las poses
+        drawPose(pose);
+    }
+
+    function drawPose(pose) {
+        if (webcam.canvas) {
+            ctx.drawImage(webcam.canvas, 0, 0);
+            // dibujar los puntos clave y el esqueleto
+            if (pose) {
+                const minPartConfidence = 0.5;
+                tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+                tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+            }
+        }
+    }
+
+    name = localStorage.getItem("user")
+  if (name == "null") {
+    username.innerText = ""
+  } else {
+    username.innerText = "Registrado como: " + name
+  }
+</script>
+
+</center>
+
+</body>
+</html>

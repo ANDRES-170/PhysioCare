@@ -1,0 +1,50 @@
+body {
+    background-image: url('logo.jpg');
+    background-position: center;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+table {
+    margin: auto;
+    background: transparent;
+    font-family: 'Calibri';
+    font-size: xx-large;
+    color: black;
+    text-shadow: 0px 0px 5px white;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 5px 5px 25px black;
+    padding: 10%;
+    backdrop-filter: blur(20px);
+}
+
+td {
+    text-align: center;
+    justify-content: center;
+    padding: 20px;
+    width: max-content;
+}
+
+button {
+    text-align: center;
+    transition: 0.25s;
+    height: max-content;
+    font-size: xx-large;
+}
+
+button:hover {
+    filter: invert(100%);
+}
+
+input {
+    transition: 0.5s;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+input:hover {
+    padding-left: 40px;
+    padding-right: 40px;
+}

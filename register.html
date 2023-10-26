@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="regedit.css">
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="index.html">
+            <img src="minlogo.png" width="29" height="28">
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="index.html">
+              Inicio
+            </a>
+            </div>
+          </div>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-light" href="login.html">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      
+    <table>
+        <tr>
+            <td>
+                Registro
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Nombre: <input type="text" id="reg_name" placeholder="Nombre de Usuario">
+                <br>
+                Correo: <input type="email" id="reg_mail" placeholder="Correo">
+                <br>
+                Contraseña :<input type="password" id="reg_pass" placeholder="Contaseña">
+                <br>
+                
+            </td>
+        <tr>
+            <td>
+                <button type="submit" id="reg_butt" onclick="submit()">Registrar</button>
+            </td>
+        </tr>
+    </table>
+    
+    <!--style>
+        table {
+            margin: auto;
+            background: gray;
+            font-family: Times New Roman;
+            font-size: xx-large;
+        }
+
+        td {
+            width: 200px;
+            text-align: left;
+        }
+
+        button {
+            text-align: center;
+        }
+    </style-->
+
+    <script>
+        //let email = document.querySelector('mail')
+        //let password = document.querySelector('pass')
+        //var saved_mails = [localStorage.getItem("email")]
+        //var saved_passwords = [localStorage.getItem("password")]
+
+        var saved_mails = JSON.parse(localStorage.getItem("email"))
+        var saved_passwords = JSON.parse(localStorage.getItem("password"))
+        var saved_names = JSON.parse(localStorage.getItem("name"))
+        
+
+        if (saved_names == null) {
+            saved_names = []
+        }
+
+        if (saved_mails == null) {
+            saved_mails = []
+        }
+
+        if (saved_passwords == null) {
+            saved_passwords = []
+        }
+
+        function submit() {
+            let email = reg_mail.value
+            let password = reg_pass.value
+            let name = reg_name.value
+
+            //var saved_mail = localStorage.setItem("email", email)
+            //var saved_pass = localStorage.setItem("password", pass)
+            //localStorage.setItem("email", email)
+            saved_mails.push(email)
+            localStorage.setItem("email", JSON.stringify(saved_mails))
+            //localStorage.setItem("email", saved_mails)
+            saved_passwords.push(password)
+            localStorage.setItem("password", JSON.stringify(saved_passwords))
+            //localStorage.setItem("email", saved_mails)
+            //localStorage.setItem("password", pass)
+            saved_names.push(name)
+            localStorage.setItem("name", JSON.stringify(saved_names))
+        }
+
+        function login() {
+            //localStorage.getItem("email")
+            //localStorage.getItem("password")
+
+            /* WTF is this shit
+            for (let i = 0; i <= saved_mails.length-1; i++) {
+                if (saved_mails[i] == log_mail.value) {
+                    for (let j = 0; j <= saved_passwords.length-1; j++) {
+                        if (saved_passwords[j] == log_pass.value) {
+                            //window.location.href = "index.html"
+                            for (let k = 0; k <= saved_names.length-1; k++) {
+                                if (saved_names[k] == log_name.value) {
+                                    window.location.href = "index.html"
+                                    var log_user = saved_names[k]
+                                    localStorage.setItem("user", log_user)
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                } else {
+                    console.log("No");
+                }
+                
+            }*/
+
+            for (let i = 0; i <= saved_mails.length-1; i++) {
+                if (saved_mails[i] != log_mail.value) {
+                    alert("Correo o Contraseña invalidos");
+                    return;
+                } else {
+                    break;
+                }
+            }
+
+            for (let i = 0; i <= saved_passwords.length-1; i++) {
+                if (saved_passwords[i] != log_pass.value) {
+                    alert("Correo o Contraseña invalidos");
+                    return;
+                } else {
+                    break;
+                }
+
+            }
+
+            for (let i = 0; i <= saved_names.length-1; i++) {
+                if (saved_names[i] != log_name.value) {
+                    alert("Usuario Invalido");
+                    return;
+                } else {
+                    var log_user = saved_names[i]
+                    break;
+                }
+                
+            }
+            
+            //var log_user = saved_names[i]
+            localStorage.setItem("user", log_user)
+            alert("Bienvenido")
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
